@@ -5,6 +5,7 @@ import H1 from '../../components/H1';
 import Banner from '../../components/Banner';
 import MatchList from '../../components/MatchList';
 import { SafeAreaView } from 'react-native-safe-area-context'; // Import SafeAreaView
+import { useNavigation } from '@react-navigation/native';
 
 const matches = [
   { id: '1', opponent: 'JogadorX', result: 'Vitória', date: '25/04/2025' },
@@ -12,12 +13,16 @@ const matches = [
 ];
 
 const Home: React.FC = () => {
+  const navigation = useNavigation();
+  const handleScheduleMatch = () => {
+    navigation.navigate('MarkConfrontation');
+  };
   return (
     // Use SafeAreaView para garantir o espaçamento correto
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <H1>FireBattles</H1>
-        <TouchableOpacity style={styles.ctaButton}>
+        <TouchableOpacity style={styles.ctaButton} onPress={handleScheduleMatch}>
           <Text style={styles.ctaText}>Agendar Partida</Text>
         </TouchableOpacity>
         <Banner uri="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" />

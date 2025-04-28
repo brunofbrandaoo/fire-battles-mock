@@ -6,13 +6,16 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
+import { useNavigation } from '@react-navigation/native';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
   const handleLogin = () => {
     // TODO: Implement login logic
+    navigation.navigate('MainApp');
   };
 
   return (

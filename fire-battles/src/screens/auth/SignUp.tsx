@@ -7,15 +7,18 @@ import Button from '../../components/Button';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Row from '../../components/Row';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState('');
   const [ffUsername, setFfUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     // TODO
+    navigation.navigate('Login');
   };
 
   return (

@@ -11,9 +11,15 @@ interface Match {
 
 interface MatchListProps {
   matches: Match[];
+  visibleItems?: number; // Optional prop with default value
 }
 
-const MatchList: React.FC<MatchListProps> = ({ matches }) => {
+const ITEM_HEIGHT = 56; // Height of one item + margin (44 + 12)
+
+const MatchList: React.FC<MatchListProps> = ({ matches, visibleItems = 3 }) => {
+  // Calculate container height based on requested visible items
+  const containerHeight = (ITEM_HEIGHT * visibleItems) + 8;
+  
   const renderMatch = ({ item }: { item: Match }) => (
     <View style={styles.matchItem}>
       <Text style={styles.matchText}>
@@ -23,21 +29,31 @@ const MatchList: React.FC<MatchListProps> = ({ matches }) => {
   );
 
   return (
-    <FlatList
-      data={matches}
-      renderItem={renderMatch}
-      keyExtractor={item => item.id}
-      style={styles.list}
-      contentContainerStyle={{ paddingBottom: 32 }}
-    />
+    <View style={[styles.container, { height: containerHeight }]}>
+      <FlatList
+        data={matches}
+        renderItem={renderMatch}
+        keyExtractor={item => item.id}
+        style={styles.list}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={true}
+      />
+    </View>
   );
 };
 
 export default MatchList;
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    // Height will be set dynamically based on visibleItems prop
+  },
   list: {
     width: '100%',
+  },
+  listContent: {
+    paddingBottom: 8,
   },
   matchItem: {
     backgroundColor: colors.surface,
